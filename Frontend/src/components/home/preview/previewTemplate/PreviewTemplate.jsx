@@ -665,15 +665,15 @@ function PreviewTemplate() {
           </div>
 
           <TabsContent value="1">
-            <MinimalTemplate data={caseStudies} />
+            <MinimalTemplate  />
           </TabsContent>
 
           <TabsContent value="2">
-            <ModernTemplate data={caseStudies} />
+            <ModernTemplate  />
           </TabsContent>
 
           <TabsContent value="3">
-            <MinimalistTemplate data={caseStudies} />
+            <MinimalistTemplate  />
           </TabsContent>
         </Tabs>
       </div>
