@@ -52,7 +52,7 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/backend-app:latest
 
             # bring down any old stack (ignore errors)
-            docker-compose --env-file .env down || true
+            docker compose --env-file .env down || true
 
             # bring up containers, loading env vars from .env
-            docker-compose --env-file .env up -d
+            docker compose --env-file .env up -d
