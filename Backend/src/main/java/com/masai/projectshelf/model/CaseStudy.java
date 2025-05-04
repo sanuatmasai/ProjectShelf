@@ -1,7 +1,9 @@
 package com.masai.projectshelf.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.CollectionTable;
@@ -60,6 +62,15 @@ public class CaseStudy {
     private String youTubeUrl;
     
     private String themeId;
+    
+    @Column(columnDefinition = "INT DEFAULT 0")
+    private int totalViews = 0;
+
+    @Column(columnDefinition = "INT DEFAULT 0")
+    private int uniqueViews = 0;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> uniqueViewIps = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "creator_id", nullable = false)

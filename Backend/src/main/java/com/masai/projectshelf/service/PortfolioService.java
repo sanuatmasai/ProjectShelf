@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.masai.projectshelf.dto.CaseStudyDto;
 import com.masai.projectshelf.dto.UserPortfolioResponse;
@@ -23,11 +24,18 @@ public class PortfolioService {
     @Autowired
     private CaseStudyRepository caseStudyRepository;
 
-    public UserPortfolioResponse getUserPortfolio(String uniqueName) {
+    public UserPortfolioResponse getUserPortfolio(String uniqueName, String ip) {
         User user = userRepository.findByUniqueNameIgnoreCase(uniqueName)
                 .orElseThrow(() -> new BadRequestException("User with unique name '" + uniqueName + "' not found"));
 
         List<CaseStudy> caseStudies = caseStudyRepository.findByCreator(user);
+        
+        
+        user.setTotalViews(user.getTotalViews() + 1);
+        if (user.getUniqueViewPortfolioIps().add(ip)) {
+            user.setUniqueViews(user.getUniqueViews() + 1);
+        }
+        userRepository.save(user);
 
         List<CaseStudyDto> caseStudyDtos = caseStudies.stream()
                 .map(CaseStudyDto :: mapToResponse)
@@ -47,11 +55,12 @@ public class PortfolioService {
                 user.getDesignation(),
                 user.getAddress(),
                 user.getUniqueName(),
+                user.getTemplateId(),
                 caseStudyDtos
         );
     }
     
-    public CaseStudyDto getUserPortfolio(String uniqueName, String uid) {
+    public CaseStudyDto getUserPortfolio(String uniqueName, String uid, String ip) {
         User user = userRepository.findByUniqueNameIgnoreCase(uniqueName)
                 .orElseThrow(() -> new BadRequestException("User with unique name '" + uniqueName + "' not found"));
         
@@ -63,6 +72,23 @@ public class PortfolioService {
         	throw new BadRequestException("The requested case study does not belong to this user.");
         }
         
+        
+//        for (CaseStudy cs : caseStudies) {
+            cs.setTotalViews(cs.getTotalViews() + 1);
+            if (cs.getUniqueViewIps().add(ip)) {
+                cs.setUniqueViews(cs.getUniqueViews() + 1);
+            }
+            caseStudyRepository.save(cs);
+//        }
+        
         return CaseStudyDto.mapToResponse(cs);
     }
+    
+//    @Transactional
+//    public void incrementCaseStudyView(String uid) {
+//        CaseStudy cs = caseStudyRepository.findByUid(uid);
+//        cs.setViews(cs.getViews() + 1);
+//        caseStudyRepository.save(cs);
+//    }
+
 }

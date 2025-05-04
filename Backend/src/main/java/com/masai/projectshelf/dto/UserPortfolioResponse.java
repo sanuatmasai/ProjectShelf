@@ -23,6 +23,7 @@ public class UserPortfolioResponse {
     private String designation;
     private String address;
     private String uniqueName;
+    private String templateId;
     private List<CaseStudyDto> caseStudies;
 }
 

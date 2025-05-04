@@ -25,6 +25,8 @@ public class CaseStudyDto {
     private List<String> mediaUrls;
     private String youTubeUrl;
     private String themeId;
+    private int totalViews;
+    private int uniqueViews;
     private Long createdUserId;
     
     public static CaseStudyDto mapToResponse(CaseStudy cs) {
@@ -40,9 +42,9 @@ public class CaseStudyDto {
     			.youTubeUrl(cs.getYouTubeUrl())
     			.mediaUrls(cs.getMediaUrls())
     			.themeId(cs.getThemeId())
+    			.totalViews(cs.getTotalViews())
+    			.uniqueViews(cs.getUniqueViews())
     			.createdUserId(cs.getCreator().getId())
     			.build();
     }
-    
-    
 }

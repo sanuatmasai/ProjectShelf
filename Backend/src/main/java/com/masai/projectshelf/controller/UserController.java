@@ -120,6 +120,8 @@ public class UserController {
         return ResponseEntity.ok(UserDto.fromUser(currentUser));
     }
     
-    
-    
+    @GetMapping("/dashboard-data")
+    public ResponseEntity<?> getUserDashBoardData() {
+        return ResponseEntity.ok(new MessageResponse("", userService.getDashBoardData()));
+    }
 }

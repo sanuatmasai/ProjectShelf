@@ -1,11 +1,16 @@
 package com.masai.projectshelf.model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -58,6 +63,15 @@ public class User {
     
     private String address; 
     private String designation;
+    
+    @Column(columnDefinition = "INT DEFAULT 0")
+    private int totalViews = 0;
+
+    @Column(columnDefinition = "INT DEFAULT 0")
+    private int uniqueViews = 0;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> uniqueViewPortfolioIps = new HashSet<>();
     
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CaseStudy> caseStudies;

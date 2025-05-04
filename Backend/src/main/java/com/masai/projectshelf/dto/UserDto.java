@@ -39,6 +39,8 @@ public class UserDto {
     private String designation;
     private String address;
     private String uniqueName;
+    private int totalViews;
+    private int uniqueViews;
     
     public static UserDto fromUser(User user) {
         return new UserDto().builder()
@@ -58,6 +60,8 @@ public class UserDto {
         		.designation(user.getDesignation())
         		.address(user.getAddress())
         		.uniqueName(user.getUniqueName())
+        		.totalViews(user.getTotalViews())
+        		.uniqueViews(user.getUniqueViews())
         		.build();
     }
 }

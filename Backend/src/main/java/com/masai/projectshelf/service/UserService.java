@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.masai.projectshelf.dto.DashBoardDataDto;
 import com.masai.projectshelf.dto.UserDto;
 import com.masai.projectshelf.enums.Role;
 import com.masai.projectshelf.exception.BadRequestException;
@@ -67,6 +68,11 @@ public class UserService {
         	}
         }
         return userRepository.save(user);
+    }
+    
+    public DashBoardDataDto getDashBoardData() {
+    	User user = contextService.getCurrentUser();
+    	return DashBoardDataDto.mapToResponse(user);
     }
 
 }
