@@ -3,7 +3,7 @@ name: CI/CD Pipeline for dynamic-form-builder App
 on:
   push:
     branches:
-      - master
+      - dev
 
 jobs:
   build-and-deploy:
